@@ -2881,5 +2881,16 @@ donation:
             var h = BitcoinAddress.Create(invoice.BitcoinAddress, Network.RegTest).ScriptPubKey.Hash.ToString();
             return ctx.AddressInvoices.FirstOrDefault(i => i.InvoiceDataId == invoice.Id && i.GetAddress() == h) != null;
         }
+
+
+        [Fact]
+        [Trait("Fast", "Fast")]
+        public void TestDashDerivationScheme()
+        {
+            var testnet = new BTCPayNetworkProvider(NetworkType.Testnet).GetNetwork("DASH");
+            var root = new Mnemonic("eager tuna emotion hover wage oyster electric speed net bread empower useless").DeriveExtKey();
+            Console.WriteLine(root.ToString(testnet.NBitcoinNetwork));
+
+        }
     }
 }
